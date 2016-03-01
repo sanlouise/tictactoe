@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     
     var gameState = [0, 0, 0, 0, 0, 0, 0, 0, 0]
     
+    let winningCombinations = [[0, 1, 2],[3, 4, 5],[6, 7, 8],[0, 3, 6],[1, 4, 7],[2, 5, 8],[0, 4, 8], [2, 4, 6]]
+    
     
     @IBOutlet var button: UIButton!
     
@@ -44,6 +46,33 @@ class ViewController: UIViewController {
                 activePlayer = 1
             
             }
+            
+            // Loop through winning combinations
+            
+            for combination in winningCombinations {
+                
+                // The first part of this statement checks that not all fields are blank.
+                
+                // Then it checks to see if three consecutive items are the same and not 0.
+                
+                if (gameState[combination[0]] != 0 && gameState[combination[0]] == gameState[combination[1]] && gameState[combination[1]] == gameState[combination[2]]) {
+                    
+                    if gameState[combination[0]] == 1 {
+                        
+                        print("Noughts is the winner!")
+                        
+                    } else {
+                        
+                        print("Victory for crosses!")
+                        
+                    }
+                
+                }
+                
+                
+            }
+            
+            
         }
         
     }
