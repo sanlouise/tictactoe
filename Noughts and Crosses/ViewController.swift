@@ -20,8 +20,14 @@ class ViewController: UIViewController {
     
     let winningCombinations = [[0, 1, 2],[3, 4, 5],[6, 7, 8],[0, 3, 6],[1, 4, 7],[2, 5, 8],[0, 4, 8], [2, 4, 6]]
     
+    // Check if a winner has come up yet.
+    
+    var gameActive = true
     
     @IBOutlet var button: UIButton!
+    
+    
+    @IBOutlet var gameWinnerLabel: UILabel!
     
     @IBAction func buttonPressed(sender: AnyObject) {
         
@@ -29,7 +35,7 @@ class ViewController: UIViewController {
         
         // 0 refers to empty
         
-        if (gameState[sender.tag] == 0) {
+        if (gameState[sender.tag] == 0 && gameActive == true) {
         
             gameState[sender.tag] = activePlayer
         
@@ -57,15 +63,34 @@ class ViewController: UIViewController {
                 
                 if (gameState[combination[0]] != 0 && gameState[combination[0]] == gameState[combination[1]] && gameState[combination[1]] == gameState[combination[2]]) {
                     
+                    gameActive = false
+                    
                     if gameState[combination[0]] == 1 {
                         
-                        print("Noughts is the winner!")
+                        
+                        // Once someone has won.
+                        
+                        gameWinnerLabel.text = "Noughts is the winner!"
                         
                     } else {
                         
-                        print("Victory for crosses!")
+                        gameWinnerLabel.text = "Victory for crosses!"
                         
                     }
+                    
+                    // Make the label appear on the screen.
+                    
+                    gameWinnerLabel.hidden = false;
+                    
+                    UIView.animateWithDuration(0.5, animations: { () -> Void in
+                        
+                        
+                        self.gameWinnerLabel.center = CGPointMake(self.gameWinnerLabel.center.x + 500, self.gameWinnerLabel.center.y)
+                        
+                        
+                        
+                    })
+                    
                 
                 }
                 
@@ -80,6 +105,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        gameWinnerLabel.hidden = true
+        
+        gameWinnerLabel.center = CGPointMake(gameWinnerLabel.center.x - 500, gameWinnerLabel.center.y)
+        
     }
 
     override func didReceiveMemoryWarning() {
